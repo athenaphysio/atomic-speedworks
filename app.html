@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Athena App — Atomic Speedworks</title>
+<meta name="description" content="A look inside the Athena app — the clinical-grade platform that powers every Atomic Speedworks session." />
+
+<style>
+:root{
+  --crimson:#D02954;
+  --crimson-dark:#a61f43;
+  --purple:#8E44C9;
+  --purple-light:#a866dc;
+  --navy:#2D1B4E;
+  --black:#050208;
+  --ink:#0e0a18;
+  --cream:#f7f3ef;
+  --soft:#ece6df;
+  --muted:#7a7384;
+  --shadow:0 10px 30px rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:.5px;
+  line-height:1.05;
+  margin:0 0 16px;
+  text-transform:uppercase;
+}
+h1{font-size:clamp(2.4rem,5vw,4rem);}
+h2{font-size:clamp(1.6rem,3vw,2.4rem);}
+p{margin:0 0 14px;}
+
+.eyebrow{
+  display:inline-block;
+  font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;
+  font-weight:800;
+  letter-spacing:3px;
+  font-size:.8rem;
+  color:var(--crimson);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.eyebrow.on-dark{color:var(--purple-light);}
+
+.btn{
+  display:inline-block;
+  padding:14px 28px;
+  border-radius:6px;
+  font-weight:700;
+  font-size:1rem;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border:0;cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{background:var(--crimson);color:#fff;}
+.btn-primary:hover{background:var(--crimson-dark);transform:translateY(-2px);box-shadow:var(--shadow);}
+.btn-ghost{background:transparent;color:#fff;border:2px solid #fff;}
+.btn-ghost:hover{background:#fff;color:var(--ink);}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+.pattern-bg{
+  background-color:var(--black);
+  background-image:url("pattern-bg.jpg");
+  background-repeat:repeat;
+  background-size:400px auto;
+  color:#fff;
+  position:relative;
+}
+.pattern-bg::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,2,8,.55),rgba(5,2,8,.78));
+  pointer-events:none;
+}
+.pattern-bg > *{position:relative;z-index:1;}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:50;background:#000;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;max-width:1200px;margin:0 auto;
+}
+.nav-logo img{height:42px;display:block;}
+.nav-links{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.nav-links a{
+  color:#fff;text-decoration:none;font-size:.9rem;font-weight:600;letter-spacing:.5px;
+}
+.nav-links a:hover{color:var(--purple-light);}
+.nav-links .btn{padding:10px 20px;font-size:.85rem;}
+@media(max-width:720px){.nav-links a:not(.btn){display:none;}}
+
+/* HERO */
+.app-hero{
+  padding:100px 0 80px;text-align:center;
+}
+.app-hero h1 span.pink{color:var(--crimson);}
+.app-hero h1 span.purple{color:var(--purple-light);}
+.app-hero p.lead{font-size:1.15rem;max-width:720px;margin:0 auto 28px;color:#e9e4ef;}
+
+/* GALLERY */
+.gallery{padding:80px 0;}
+.gallery-intro{max-width:720px;margin:0 auto 50px;text-align:center;}
+
+.shots{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:32px;
+}
+.shot{
+  background:#fff;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:18px;
+  display:flex;flex-direction:column;align-items:center;
+  transition:transform .2s ease;
+}
+.shot:hover{transform:translateY(-6px);}
+.shot .frame{
+  /* Phone-shape frame for screenshots */
+  width:100%;
+  aspect-ratio:9/19;
+  background:#0e0a18 center/cover no-repeat;
+  border-radius:22px;
+  border:6px solid #1a1322;
+  display:flex;align-items:center;justify-content:center;
+  color:#7a7384;font-size:.85rem;text-align:center;padding:14px;
+  position:relative;overflow:hidden;
+}
+.shot .frame.placeholder::before{
+  content:"";position:absolute;inset:0;
+  background-image:url("pattern-bg.jpg");
+  background-size:200px auto;opacity:.18;
+}
+.shot .frame.placeholder span{
+  position:relative;z-index:1;
+  color:#cfc7d7;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.75rem;
+}
+.shot .caption{
+  margin-top:14px;font-weight:700;color:var(--navy);font-size:.95rem;text-align:center;
+}
+.shot .sub{
+  font-size:.8rem;color:var(--muted);text-align:center;margin-top:2px;
+}
+
+/* CTA */
+.cta-band{
+  background:var(--navy);color:#fff;text-align:center;padding:60px 24px;
+}
+.cta-band h2{margin-bottom:14px;}
+.cta-band p{max-width:620px;margin:0 auto 24px;color:#e9e4ef;}
+
+/* FOOTER */
+footer{
+  background:var(--black);color:#fff;padding:50px 0 30px;text-align:center;
+  border-top:4px solid var(--crimson);
+}
+footer .wrap > p{color:#cfc7d7;}
+.contact-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin:24px 0;
+}
+.contact-grid a{
+  color:#fff;text-decoration:none;font-size:1rem;
+  border-bottom:2px solid var(--crimson);padding-bottom:3px;
+}
+.contact-grid a:hover{color:var(--crimson);}
+.copyright{font-size:.8rem;color:#7a7384;margin-top:20px;letter-spacing:1px;}
+
+@media(max-width:680px){
+  .app-hero h1 span{display:block;}
+}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" />
+    </a>
+    <div class="nav-links">
+      <a href="index.html#programme">Programme</a>
+      <a href="index.html#coaches">Coaches</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#enrol" class="btn btn-primary">Enrol</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="app-hero pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Inside the platform</span>
+    <h1><span class="pink">The Athena App</span></h1>
+    <p class="lead">Athena is a clinical-grade platform built by Dr David Silver. Every Atomic Speedworks session is delivered through it — guided videos, progress tracking, and direct messaging with your coach.</p>
+    <a href="index.html#pricing" class="btn btn-primary">Choose a Package</a>
+  </div>
+</header>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="gallery-intro">
+      <span class="eyebrow">A look inside</span>
+      <h2>Built for young athletes &amp; their parents</h2>
+      <p>A simple, no-clutter experience: open the app, press play, follow the coach. Each session is short, structured, and tracked.</p>
+    </div>
+
+    <!--
+      To add a real screenshot, drop a phone-shaped image into this folder
+      named e.g. "app1.jpg", "app2.jpg" — then change the matching .frame line below
+      from   <div class="frame placeholder"><span>...</span></div>
+      to     <div class="frame" style="background-image:url('app1.jpg');"></div>
+    -->
+
+    <div class="shots">
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Today's Session</div>
+        <div class="sub">One tap to start. Warm-up, main set, cool-down.</div>
+      </div>
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Exercise Demo</div>
+        <div class="sub">Every drill has a short demonstration video.</div>
+      </div>
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Progress Tracking</div>
+        <div class="sub">Tick off completed sessions. Streaks &amp; consistency.</div>
+      </div>
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Coach Messaging</div>
+        <div class="sub">Reply directly to David or Marcus. 24-hr response.</div>
+      </div>
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Test Day Results</div>
+        <div class="sub">Day 1 baseline vs Day 12 retest in one screen.</div>
+      </div>
+
+      <div class="shot">
+        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
+        <div class="caption">Parent Dashboard</div>
+        <div class="sub">A quiet view of how your child is getting on.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Ready to see your child get faster?</h2>
+  <p>Pick a tier and we'll have you set up on the Athena app the same day.</p>
+  <a href="index.html#pricing" class="btn btn-primary">View Packages</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" style="max-width:300px;width:80%;margin-bottom:18px;" />
+    <p style="font-family:'Avenir Next','Avenir',sans-serif;font-weight:900;letter-spacing:3px;font-size:1.2rem;margin:0 0 6px;"><span style="color:var(--crimson);">TRAIN FAST</span> &nbsp;·&nbsp; <span style="color:var(--purple-light);">PLAY FASTER</span></p>
+    <p>Dr David Silver PhD &nbsp;&amp;&nbsp; Marcus Watson</p>
+
+    <div class="contact-grid">
+      <a href="mailto:athenaphysio@gmail.com">athenaphysio@gmail.com</a>
+      <a href="tel:+447793650569">07793 650 569</a>
+      <a href="index.html">← Back to home</a>
+    </div>
+    <div class="copyright">© <span id="yr"></span> Atomic Speedworks. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>

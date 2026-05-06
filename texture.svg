@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
+  <!-- Subtle double-triangle texture inspired by the Atomic Speedworks logo arrows -->
+  <g fill="#D02954">
+    <!-- Top-left chevron pair -->
+    <polygon points="14,20 36,36 14,52"/>
+    <polygon points="34,20 56,36 34,52"/>
+    <!-- Bottom-right chevron pair (offset for staggered tiling) -->
+    <polygon points="84,90 106,106 84,122"/>
+    <polygon points="104,90 126,106 104,122"/>
+  </g>
+</svg>

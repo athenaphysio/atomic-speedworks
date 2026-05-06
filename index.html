@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atomic Speedworks — Train FAST, Play FASTER</title>
+<meta name="description" content="A six-week online guided summer speed development programme for young sports players, aged 12 to 18. Built by a chartered physiotherapist and a former Olympic athlete." />
+
+<!-- Stripe.js (only used if you switch from Payment Links to Stripe Checkout later) -->
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+<style>
+/* =========================================================
+   ATOMIC SPEEDWORKS — single-file website
+   Brand colours pulled from the logo:
+     Crimson pink  #D02954
+     Purple        #8E44C9
+     Deep navy     #2D1B4E
+     Black         #050208
+   ========================================================= */
+
+:root{
+  --crimson:#D02954;
+  --crimson-dark:#a61f43;
+  --purple:#8E44C9;
+  --purple-light:#a866dc;
+  --navy:#2D1B4E;
+  --black:#050208;
+  --ink:#0e0a18;
+  --cream:#f7f3ef;
+  --soft:#ece6df;
+  --muted:#7a7384;
+  --shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Repeating geometric background — used on dark sections */
+.pattern-bg{
+  background-color:var(--black);
+  background-image:url("pattern-bg.jpg");
+  background-repeat:repeat;
+  background-size:400px auto;
+  color:#fff;
+  position:relative;
+}
+.pattern-bg::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,2,8,.55),rgba(5,2,8,.78));
+  pointer-events:none;
+}
+.pattern-bg > *{position:relative;z-index:1;}
+
+/* Generic layout */
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+section{padding:80px 0;position:relative;}
+
+/* Faded geometric pattern over cream / soft sections for depth */
+.section-light,
+.section-soft{
+  position:relative;
+  background-color:var(--cream);
+}
+.section-soft{background-color:var(--soft);}
+.section-light::before,
+.section-soft::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:url("texture.svg");
+  background-repeat:repeat;
+  background-size:140px 140px;
+  opacity:.06;
+  pointer-events:none;
+  z-index:0;
+}
+.section-light .wrap,
+.section-soft .wrap{position:relative;z-index:1;}
+
+h1,h2,h3,h4{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:.5px;
+  line-height:1.05;
+  margin:0 0 16px;
+  text-transform:uppercase;
+}
+h1{font-size:clamp(2.4rem,5vw,4.4rem);}
+h2{font-size:clamp(1.8rem,3.5vw,2.8rem);}
+h3{font-size:1.25rem;letter-spacing:1px;}
+p{margin:0 0 14px;}
+
+.eyebrow{
+  display:inline-block;
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  font-weight:800;
+  letter-spacing:3px;
+  font-size:.8rem;
+  color:var(--crimson);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.eyebrow.on-dark{color:var(--purple-light);}
+
+.btn{
+  display:inline-block;
+  padding:14px 28px;
+  border-radius:6px;
+  font-weight:700;
+  font-size:1rem;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border:0;cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{background:var(--crimson);color:#fff;}
+.btn-primary:hover{background:var(--crimson-dark);transform:translateY(-2px);box-shadow:var(--shadow);}
+.btn-secondary{background:var(--purple);color:#fff;}
+.btn-secondary:hover{background:#7232ad;transform:translateY(-2px);box-shadow:var(--shadow);}
+.btn-ghost{background:transparent;color:#fff;border:2px solid #fff;}
+.btn-ghost:hover{background:#fff;color:var(--ink);}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:#000;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;max-width:1200px;margin:0 auto;
+}
+.nav-logo img{height:42px;display:block;}
+.nav-links{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.nav-links a{
+  color:#fff;text-decoration:none;font-size:.9rem;font-weight:600;
+  letter-spacing:.5px;
+}
+.nav-links a:hover{color:var(--purple-light);}
+.nav-links .btn{padding:10px 20px;font-size:.85rem;}
+@media(max-width:720px){
+  .nav-links a:not(.btn){display:none;}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:88vh;
+  display:flex;align-items:center;
+  text-align:center;
+  padding:120px 0 80px;
+}
+.hero .wrap{width:100%;}
+.hero-logo{max-width:640px;width:90%;margin:0 auto 32px;display:block;}
+.hero-tag{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(2.2rem,5vw,4rem);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin:0 0 8px;
+}
+.hero-tag .dot{
+  color:#fff;
+  margin:0 .35em;
+  opacity:.85;
+}
+@media(max-width:680px){
+  .hero-tag{font-size:clamp(2rem,9vw,3rem);line-height:1.1;}
+  .hero-tag .pink,
+  .hero-tag .purple{display:block;}
+  .hero-tag .dot{display:none;}
+}
+.hero-tag .pink{color:var(--crimson);}
+.hero-tag .purple{color:var(--purple-light);}
+.hero-sub{
+  font-size:1.15rem;
+  max-width:680px;margin:0 auto 14px;
+  color:#e9e4ef;
+}
+.hero-coaches{
+  font-size:.95rem;color:#cfc7d7;margin-bottom:36px;letter-spacing:1px;
+}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* ---------- ABOUT ---------- */
+.lead{font-size:1.15rem;max-width:780px;}
+.kpi-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;margin-top:40px;
+}
+.kpi{
+  background:#fff;padding:26px;border-radius:10px;border-left:5px solid var(--crimson);
+  box-shadow:var(--shadow);
+}
+.kpi h4{margin:0 0 8px;color:var(--crimson);font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:1px;}
+.kpi p{margin:0;font-size:.95rem;color:#444;}
+
+.callout{
+  margin-top:32px;
+  background:var(--navy);color:#fff;padding:22px 26px;border-radius:10px;
+  font-size:1rem;border-left:5px solid var(--purple);
+}
+
+/* ---------- COACHES ---------- */
+.coach-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:32px;margin-top:36px;
+}
+.coach{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  padding:30px;border-radius:10px;
+}
+.coach h3{color:var(--crimson);margin-bottom:6px;font-size:1.4rem;}
+.coach .role{color:var(--purple-light);font-size:.9rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+.coach p{color:#e6e2ee;font-size:.95rem;}
+
+/* Coach avatar — drop a square photo into the folder named marcus.jpg
+   or david.jpg and it will replace the placeholder automatically. */
+.avatar{
+  width:160px;height:160px;border-radius:50%;
+  margin:0 auto 22px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;
+  font-weight:900;font-size:3rem;color:#fff;letter-spacing:2px;
+  background-size:cover;background-position:center top;
+  border:4px solid rgba(255,255,255,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.avatar-marcus{background-color:var(--crimson);background-image:url("Marcus.jpg");}
+.avatar-david{background-color:var(--purple);background-image:url("David.jpeg");}
+
+/* ---------- TABLE ---------- */
+.table-wrap{overflow-x:auto;margin-top:24px;}
+table{
+  width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+th,td{
+  text-align:left;padding:16px 18px;font-size:.95rem;border-bottom:1px solid #ece6df;vertical-align:top;
+}
+thead th{
+  background:var(--navy);color:#fff;
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;font-size:.85rem;
+}
+tbody td{color:var(--navy);}
+tbody tr:nth-child(even){background:#faf6f1;}
+tbody tr:last-child td{border-bottom:0;}
+td strong{color:var(--crimson);font-weight:800;}
+
+/* ---------- SAFETY / NEEDS ---------- */
+.two-col{
+  display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;
+}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+
+.checklist{list-style:none;padding:0;margin:18px 0 0;}
+.checklist li{
+  padding:12px 0 12px 38px;position:relative;border-bottom:1px solid #e2dcd3;
+}
+.checklist li:before{
+  content:"▸";position:absolute;left:8px;top:11px;
+  color:var(--crimson);font-size:1.2rem;font-weight:700;
+}
+
+/* ---------- PRICING ---------- */
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:24px;margin-top:40px;
+}
+.tier{
+  background:#fff;border-radius:14px;padding:32px 26px;display:flex;flex-direction:column;
+  box-shadow:var(--shadow);position:relative;border-top:6px solid #ddd;
+  transition:transform .2s ease;
+}
+.tier:hover{transform:translateY(-6px);}
+.tier.bronze{border-top-color:#b07a3a;}
+.tier.silver{border-top-color:#9aa3ad;}
+.tier.gold{border-top-color:#d4a72b;}
+.tier.vip{border-top-color:var(--crimson);background:linear-gradient(180deg,#1a0d2e 0%,#2D1B4E 100%);color:#fff;}
+.tier.vip h3,.tier.vip .price{color:#fff;}
+.tier.vip li{color:#e6e2ee;}
+
+.tier-name{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:1.5rem;letter-spacing:2px;text-transform:uppercase;
+  margin:0 0 4px;
+}
+.tier-tag{font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+.tier.vip .tier-tag{color:var(--purple-light);}
+.tier .badge{
+  position:absolute;top:-12px;right:18px;background:var(--crimson);color:#fff;
+  font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;font-weight:700;
+}
+.price{font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:3rem;color:var(--crimson);margin:6px 0 18px;line-height:1;}
+.price small{font-size:.9rem;color:var(--muted);font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:400;letter-spacing:0;}
+.tier ul{list-style:none;padding:0;margin:0 0 24px;flex-grow:1;}
+.tier ul li{padding:8px 0 8px 24px;position:relative;font-size:.93rem;line-height:1.45;}
+.tier ul li:before{
+  content:"✓";position:absolute;left:0;top:7px;color:var(--crimson);font-weight:700;
+}
+.tier.vip ul li:before{color:var(--purple-light);}
+.tier .btn{width:100%;text-align:center;}
+
+.discount-box{
+  margin-top:32px;background:#fff;border-radius:10px;padding:22px 26px;border-left:5px solid var(--purple);
+  box-shadow:var(--shadow);
+}
+.discount-box h4{font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:1.5px;color:var(--purple);margin:0 0 8px;font-size:1.1rem;}
+
+/* ---------- YEAR ROUND ---------- */
+.yr-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:32px;
+}
+.yr{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  padding:28px;border-radius:10px;
+}
+.yr h3{color:var(--purple-light);margin-bottom:6px;}
+.yr .price{color:#fff;font-size:2.2rem;}
+.yr ul{list-style:none;padding:0;margin:14px 0 22px;}
+.yr ul li{padding:6px 0 6px 20px;position:relative;font-size:.92rem;color:#e6e2ee;}
+.yr ul li:before{content:"▸";position:absolute;left:0;color:var(--crimson);font-weight:700;}
+
+/* ---------- FAQ ---------- */
+.faq details{
+  background:#fff;border-radius:8px;margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;
+}
+.faq summary{
+  padding:18px 22px;cursor:pointer;font-weight:700;font-size:1rem;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary:after{content:"+";color:var(--crimson);font-size:1.5rem;font-weight:300;}
+.faq details[open] summary:after{content:"−";}
+.faq details[open] summary{border-bottom:1px solid #f1ebe3;}
+.faq .answer{padding:18px 22px;color:#3a3344;font-size:.97rem;}
+
+/* ---------- ENROL ---------- */
+.steps{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;margin-top:36px;
+}
+.step{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
+  padding:28px;border-radius:10px;position:relative;
+}
+.step .num{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:3rem;color:var(--crimson);line-height:1;margin-bottom:8px;
+}
+.step h3{color:#fff;font-size:1.1rem;}
+.step p{color:#e6e2ee;font-size:.95rem;margin:0;}
+
+/* ---------- CONTACT FOOTER ---------- */
+footer{
+  background:var(--black);color:#fff;padding:60px 0 30px;text-align:center;
+  border-top:4px solid var(--crimson);
+}
+footer .wrap > p{color:#cfc7d7;}
+.contact-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin:30px 0;
+}
+.contact-grid a{
+  color:#fff;text-decoration:none;font-size:1rem;
+  border-bottom:2px solid var(--crimson);padding-bottom:3px;
+}
+.contact-grid a:hover{color:var(--crimson);}
+.copyright{font-size:.8rem;color:#7a7384;margin-top:20px;letter-spacing:1px;}
+
+/* Anchor scroll offset for sticky nav */
+section[id]{scroll-margin-top:70px;}
+</style>
+
+<!-- Avenir Next is on Apple devices. Nunito Sans is a free web fallback so non-Apple browsers see something close. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- =========================  NAV  ========================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" />
+    </a>
+    <div class="nav-links">
+      <a href="#programme">Programme</a>
+      <a href="#coaches">Coaches</a>
+      <a href="#testing">Testing</a>
+      <a href="#pricing">Pricing</a>
+      <a href="app.html">The App</a>
+      <a href="#faq">FAQ</a>
+      <a href="#enrol" class="btn btn-primary">Enrol</a>
+    </div>
+  </div>
+</nav>
+
+<!-- =========================  HERO  ========================= -->
+<header id="top" class="hero pattern-bg">
+  <div class="wrap">
+    <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" class="hero-logo" />
+    <h1 class="hero-tag">
+      <span class="pink">Train FAST</span>
+      <span class="dot">·</span>
+      <span class="purple">Play FASTER</span>
+    </h1>
+    <p class="hero-sub">A six-week online guided summer speed development programme for young sports players, aged 12 to 18.</p>
+    <p class="hero-coaches">With Marcus Watson &nbsp;&amp;&nbsp; Dr David Silver PhD</p>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn btn-primary">View Packages</a>
+      <a href="#programme" class="btn btn-ghost">How it works</a>
+      <a href="app.html" class="btn btn-secondary">View the App</a>
+    </div>
+  </div>
+</header>
+
+<!-- =========================  ABOUT  ========================= -->
+<section id="about" class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">About the programme</span>
+    <h2>Speed is made, not born.</h2>
+    <p class="lead">A clear, structured programme that helps your child get measurably faster, stronger and more confident over six weeks of the school summer holidays — built by a chartered physiotherapist with a PhD in youth rugby and coached alongside a former international and Olympic athlete.</p>
+
+    <p style="margin-top:24px;max-width:780px;">Speed is the single most useful physical quality in sport. It decides whether a player makes the tackle, finishes the line break, or is the one who recovers first. It is also the quality most often left to chance in youth sport. Young players are often told to "run more" — but not actually coached on how to develop and harness speed.</p>
+
+    <p style="max-width:780px;">ASW is six weeks of structured, age-appropriate strength and speed coaching. Over the 12 sessions your child will:</p>
+
+    <div class="kpi-grid">
+      <div class="kpi"><h4>Faster over 10m</h4><p>Become measurably quicker over 10 metres — the most sport-relevant kind of speed.</p></div>
+      <div class="kpi"><h4>Sprint Mechanics</h4><p>Improve posture, knee drive, stride frequency and ground contact.</p></div>
+      <div class="kpi"><h4>Strength &amp; Power</h4><p>Build lower-limb strength and jumping power that protect against injury.</p></div>
+      <div class="kpi"><h4>Change Direction</h4><p>Sharpen change-of-direction and deceleration ability.</p></div>
+      <div class="kpi"><h4>Understand the Why</h4><p>Athletes who understand are athletes who improve.</p></div>
+      <div class="kpi"><h4>Numbers, not opinions</h4><p>Day 1 baseline and Day 12 retest — a one-page report compares the two.</p></div>
+    </div>
+
+    <div class="callout">
+      ASW runs once a year, in the school summer holidays. There is one cohort — full stop. Parents who miss it wait twelve months. We do this on purpose, to give every athlete in the cohort our full attention and so that the work we do over six focused weeks lands properly.
+    </div>
+  </div>
+</section>
+
+<!-- =========================  COACHES  ========================= -->
+<section id="coaches" class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Your child's coaches</span>
+    <h2>The clinical depth of a PhD-level physio.<br/>The lived experience of an international athlete.</h2>
+    <p style="max-width:780px;color:#e9e4ef;">ASW is a partnership between two highly skilled and experienced coaches. A chartered physiotherapist with twenty years in private sports medicine, and a former Premiership, international, and Olympic rugby athlete.</p>
+
+    <div class="coach-grid">
+      <div class="coach">
+        <div class="avatar avatar-marcus" aria-label="Marcus Watson"></div>
+        <h3 style="text-align:center;">Marcus Watson</h3>
+        <div class="role" style="text-align:center;">Former Pro Rugby Player · Elite Coach</div>
+        <p>Marcus is a former pro renowned for his professionalism, training dedication, and athleticism. He has lived every step of the academy and senior pathway and brings the player's perspective to ASW. Marcus played professionally with London Irish, Wasps, Newcastle Falcons, and Benetton Treviso, and won a Rugby 7s silver medal at the London 2016 Olympics. He is now a professional skills and performance coach working with aspiring young athletes across a range of sports.</p>
+      </div>
+      <div class="coach">
+        <div class="avatar avatar-david" aria-label="Dr David Silver PhD"></div>
+        <h3 style="text-align:center;">Dr David Silver PhD</h3>
+        <div class="role" style="text-align:center;">Chartered Physiotherapist · Youth Sport S&amp;C Coach</div>
+        <p>David has been Head of Medical Services at Cobham Rugby since 2008. His doctoral research at St Mary's University was on concussion in youth rugby and he is a consultant to the Rugby Football Union. Across 20 years of practice, David has carried out more than 20,000 consultations. He is the founder of Athena Physio and was Lead Physiotherapist at King's College School. In practice: your child is being coached by someone who treats youth injuries for a living. Every session is tailored to their specific needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  PROGRAMME  ========================= -->
+<section id="programme" class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">Week by week</span>
+    <h2>How the programme works</h2>
+    <p class="lead">Two sessions a week for six weeks — twelve sessions in total. Each session is between 35 and 50 minutes including warm-up and cool-down.</p>
+
+    <h3 style="margin-top:32px;color:var(--crimson);">What "video-guided" actually means</h3>
+    <p style="max-width:780px;">On each video-guided session, your child opens the Athena app and presses play. They are walked through a warm-up, the main exercises and a cool-down by a coach on screen. Every exercise has a short demonstration video. They tick the session off when they are done. They can leave a comment for the coach, and David or Marcus reply through the app.</p>
+
+    <h3 style="margin-top:24px;color:var(--crimson);">The App</h3>
+    <p style="max-width:780px;">Athena is not a generic fitness app. It is a clinical-grade platform built by David. Every session has been written by him and Marcus specifically for your child's age-specific needs.</p>
+    <p style="margin-top:14px;"><a href="app.html" class="btn btn-secondary">View the App</a></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Week</th><th>Theme</th><th>Session A</th><th>Session B</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>Test &amp; learn the movement shapes</td><td>In-person testing day at Cobham Rugby + demo</td><td>Mechanics &amp; posture (home, video-guided)</td></tr>
+          <tr><td><strong>2</strong></td><td>Acceleration — the first 10 metres</td><td>Acceleration drills on the pitch</td><td>Strength &amp; plyometrics at home</td></tr>
+          <tr><td><strong>3</strong></td><td>Top speed — opening the engine up</td><td>Maximum-velocity sprints on the pitch</td><td>Posterior-chain (glutes, hamstrings, calves) at home</td></tr>
+          <tr><td><strong>4</strong></td><td>Resisted speed — building force</td><td>Resisted sprints on the pitch</td><td>Single-leg strength at home</td></tr>
+          <tr><td><strong>5</strong></td><td>Change direction without losing speed</td><td>Change-of-direction patterns on the pitch</td><td>Reactive strength &amp; core at home</td></tr>
+          <tr><td><strong>6</strong></td><td>Bring it together — re-test</td><td>Game-speed integration on the pitch</td><td>In-person retest day at the club</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  TESTING  ========================= -->
+<section id="testing" class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">The two testing days</span>
+    <h2>What actually happens</h2>
+    <p style="max-width:780px;color:#e9e4ef;">Testing is what makes ASW different. You and your child want improvement, and we hand you the numbers that prove it.</p>
+
+    <h3 style="margin-top:32px;color:var(--purple-light);">Day 1 — Baseline testing (at Cobham Rugby)</h3>
+    <p style="max-width:780px;color:#e9e4ef;">Your child arrives in normal training kit. The session lasts around 75 minutes per group, and parents are welcome on the sideline. We measure five things. Day 1 finishes with a short briefing for parents — how the next sessions work, a walk-through of the app, and a Q&amp;A.</p>
+
+    <h3 style="margin-top:24px;color:var(--purple-light);">Day 12 — Retest (at the club)</h3>
+    <p style="max-width:780px;color:#e9e4ef;">We repeat the same five tests in the same order. We compare your child's numbers against their own baseline. Each athlete and parent receives a printed one-page report with the numbers, the percentage change, and a short coach commentary. The session closes with a friendly relay and a group photo.</p>
+
+    <div class="table-wrap" style="margin-top:30px;">
+      <table>
+        <thead>
+          <tr><th>What we measure</th><th>What that means in plain English</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10-metre sprint, timed by laser gates</td><td>How quickly they accelerate — the first phase of every sprint in rugby.</td></tr>
+          <tr><td>30-metre sprint with splits at 10m, 20m, 30m</td><td>Whether they are limited by acceleration or by top speed.</td></tr>
+          <tr><td>Countermovement jump (CMJ)</td><td>How much power their legs produce — measured in centimetres of jump height.</td></tr>
+          <tr><td>Hand-held dynamometer (HHD)</td><td>How much force their hip and knee muscles can produce. Highlights any side-to-side weakness that can lead to injury.</td></tr>
+          <tr><td>5-0-5 change-of-direction test</td><td>How quickly they can stop, turn and re-accelerate. The cut every sports player has to make.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  SAFETY + WHAT YOU NEED  ========================= -->
+<section class="section-light">
+  <div class="wrap two-col">
+    <div>
+      <span class="eyebrow">Safety</span>
+      <h2>How we look after your child</h2>
+      <p>Every parent should ask whether the programme is safe. The honest answer is nothing in sport is injury risk-free, but ASW is built to reduce risks and make them manageable.</p>
+      <ul class="checklist">
+        <li>Every exercise is written and screened by a chartered physiotherapist (David). Nothing in the programme is more demanding than a well-coached training session at any junior sports club.</li>
+        <li>Every session has a structured warm-up and cool-down. Your child is never asked to sprint cold.</li>
+        <li>Volume is age-appropriate. Foundation (12–14): fewer reps, lower load, more mechanics. Performance (15–18): higher intensity.</li>
+        <li>A "pain-stop" rule is built into every video. If something hurts beyond normal training fatigue, your child stops the session and messages the coach. We respond within 24 hours.</li>
+        <li>Each participant completes a previous-injury and health form with their parent/guardian prior to enrolment.</li>
+      </ul>
+    </div>
+
+    <div>
+      <span class="eyebrow">What your child needs from you</span>
+      <h2>Designed for a busy summer</h2>
+      <p>The less your child relies on you, the better the programme works. Here is what you actually need to provide:</p>
+      <ul class="checklist">
+        <li><strong>Time:</strong> about 45 minutes twice a week, plus the two in-person testing days.</li>
+        <li><strong>Resistance bands</strong> (light, medium, heavy) — around £15–£25.</li>
+        <li><strong>One pair of dumbbells</strong> (5–12.5 kg) or a single kettlebell — around £20–£40.</li>
+        <li><strong>3m × 2m</strong> of clear level floor space.</li>
+        <li><strong>A chair or box</strong> (or stairs).</li>
+        <li><strong>A phone or tablet</strong> to follow the videos.</li>
+        <li><strong>A garden, park, pitch or green space.</strong></li>
+        <li>Foundation athletes (12–14) can complete almost the entire programme without dumbbells if you'd rather avoid the spend.</li>
+      </ul>
+      <p style="margin-top:20px;font-style:italic;color:#555;">Encouragement, not enforcement. The athletes who get the most out of this are the ones whose parents check in on the weekly progress and ask their child what they liked — not the ones standing over them with a stopwatch. The coaching is our job. Your job is to be interested.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  PRICING  ========================= -->
+<section id="pricing" class="section-soft">
+  <div class="wrap">
+    <span class="eyebrow">Choose your tier</span>
+    <h2>Four ways to join the cohort</h2>
+    <p class="lead">Pick the level of coaching that suits you and your child. Every tier includes the full 12-session programme.</p>
+
+    <div class="pricing-grid">
+
+      <!-- BRONZE -->
+      <div class="tier bronze">
+        <div class="tier-name">Bronze</div>
+        <div class="tier-tag">The Programme</div>
+        <div class="price">£79</div>
+        <ul>
+          <li>12 video-guided sessions over 6 weeks</li>
+          <li>Progress logged in the Athena app</li>
+          <li>Suitable for athletes who cannot make the in-person testing days</li>
+        </ul>
+        <!-- Stripe: replace href with your Stripe Payment Link for Bronze -->
+        <a class="btn btn-primary" href="STRIPE_LINK_BRONZE" data-tier="bronze">Book Bronze</a>
+      </div>
+
+      <!-- SILVER -->
+      <div class="tier silver">
+        <span class="badge">Recommended</span>
+        <div class="tier-name">Silver</div>
+        <div class="tier-tag">Programme + Testing</div>
+        <div class="price">£129</div>
+        <ul>
+          <li>Everything in Bronze</li>
+          <li>In-person testing on Day 1 and Day 12</li>
+          <li>Printed one-page progress report</li>
+          <li>App messaging with the coach throughout</li>
+        </ul>
+        <a class="btn btn-primary" href="STRIPE_LINK_SILVER" data-tier="silver">Book Silver</a>
+      </div>
+
+      <!-- GOLD -->
+      <div class="tier gold">
+        <div class="tier-name">Gold</div>
+        <div class="tier-tag">Programme + Testing + Review</div>
+        <div class="price">£179</div>
+        <ul>
+          <li>Everything in Silver</li>
+          <li>30-minute 1:1 video review call between Week 3 &amp; 4 with David or Marcus</li>
+          <li>Personalised tweak to home sessions for the second half of the programme</li>
+        </ul>
+        <a class="btn btn-primary" href="STRIPE_LINK_GOLD" data-tier="gold">Book Gold</a>
+      </div>
+
+      <!-- VIP -->
+      <div class="tier vip">
+        <span class="badge">Premium</span>
+        <div class="tier-name">VIP</div>
+        <div class="tier-tag">Programme + Testing + Two Coach Check-ins</div>
+        <div class="price">£249</div>
+        <ul>
+          <li>Everything in Silver</li>
+          <li>30-min strength check-in with Dr David Silver — lower-limb strength, movement quality, injury risk markers</li>
+          <li>30-min running specifics check-in with Marcus Watson — sprint mechanics, acceleration, the running side of the game</li>
+          <li>Personalised home-session adjustments after each call</li>
+          <li>Capped at 4 places per cohort</li>
+        </ul>
+        <a class="btn btn-secondary" href="STRIPE_LINK_VIP" data-tier="vip">Book VIP</a>
+      </div>
+
+    </div>
+
+    <div class="discount-box">
+      <h4>Discounts available</h4>
+      <p style="margin:0;"><strong>Sibling discount:</strong> £20 off the second child, £30 off the third.<br/>
+      <strong>Early-bird:</strong> £10 off Silver, Gold and VIP if booked at least 14 days before the cohort starts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  YEAR ROUND  ========================= -->
+<section id="yearround" class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Beyond the summer</span>
+    <h2>ASW Year-Round</h2>
+    <p style="max-width:780px;color:#e9e4ef;">The summer programme is the headline. But many athletes — and many parents — want to keep going once the six weeks are done. That is what ASW Year-Round is for. A year-round subscription on the same Athena app: in-season conditioning through the autumn, off-season strength through the winter, pre-season acceleration in the spring.</p>
+
+    <div class="yr-grid">
+      <div class="yr">
+        <h3>ASW Standard</h3>
+        <div class="price">£29<small> /month</small></div>
+        <p style="color:#cfc7d7;font-size:.9rem;margin:0;">or £290/year — saves 17%</p>
+        <ul>
+          <li>Year-round programme blocks</li>
+          <li>Athena app access</li>
+          <li>Filmed sessions from David and Marcus</li>
+          <li>Parent dashboard</li>
+        </ul>
+        <a class="btn btn-secondary" href="STRIPE_LINK_YR_STANDARD">Subscribe</a>
+      </div>
+      <div class="yr">
+        <h3>ASW Premium</h3>
+        <div class="price">£49<small> /month</small></div>
+        <p style="color:#cfc7d7;font-size:.9rem;margin:0;">or £490/year — saves 17%</p>
+        <ul>
+          <li>Everything in Standard</li>
+          <li>20-minute quarterly check-in video call with David or Marcus</li>
+          <li>Quarterly programme adjustments</li>
+        </ul>
+        <a class="btn btn-secondary" href="STRIPE_LINK_YR_PREMIUM">Subscribe</a>
+      </div>
+    </div>
+
+    <p style="margin-top:30px;color:#cfc7d7;font-size:.95rem;max-width:780px;">ASW Year-Round is optional. Parents choose it because the work done in summer doesn't fade through the season. We open it to summer cohort alumni at a discounted first month at the end of Day 12.</p>
+  </div>
+</section>
+
+<!-- =========================  FAQ  ========================= -->
+<section id="faq" class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq" style="margin-top:24px;">
+      <details>
+        <summary>My child has never done strength work. Is this too advanced?</summary>
+        <div class="answer">No. The Foundation stream (ages 12–14) is bodyweight and bands only. We teach movement before we add load. Many of our athletes have never picked up a dumbbell before the programme.</div>
+      </details>
+      <details>
+        <summary>My child is already in an academy or county pathway. Will they be challenged?</summary>
+        <div class="answer">Yes. The Performance stream (ages 15–18) introduces sprints, loaded single-leg work, and reactive strength training that is consistent with professional academies. The Gold and VIP tiers add personalised mid-programme reviews.</div>
+      </details>
+      <details>
+        <summary>What's the difference between Gold and VIP?</summary>
+        <div class="answer">Gold gives your child one 30-minute review call with David or Marcus. VIP gives your child two 30-minute calls — one with David focused on strength and movement, and one with Marcus focused on sprint mechanics and the running side. VIP doubles the personalised coaching time and gives your child face-time with both coaches.</div>
+      </details>
+      <details>
+        <summary>What if my child is injured during the programme?</summary>
+        <div class="answer">Injuries that occur during a programme session are reviewed immediately by David. Most niggles can be managed with a one-week modification. Significant injuries are referred into appropriate care — the same care David provides every day in his clinic.</div>
+      </details>
+      <details>
+        <summary>My child has summer sports commitments. Is this too much?</summary>
+        <div class="answer">We design ASW to fit around summer holidays, club tours, and family time. The home sessions are short and flexible. If your child has a heavy week (a tour, for example), they can drop a session and the app rolls everything forward.</div>
+      </details>
+      <details>
+        <summary>What if my child cannot make the in-person testing day?</summary>
+        <div class="answer">If the conflict is known in advance, we can usually offer a make-up testing slot in the same week. If not, the Bronze tier is appropriate and includes the full video-guided programme.</div>
+      </details>
+      <details>
+        <summary>Do you offer a refund?</summary>
+        <div class="answer">If your child cannot start the cohort for any reason, we offer a full refund up to 14 days before the cohort start. After that, we offer a transfer to next summer's cohort.</div>
+      </details>
+      <details>
+        <summary>How are video sessions delivered?</summary>
+        <div class="answer">Through the Athena app on a phone, tablet or laptop. Each session is a single short video your child follows along with — no extra browsing, no in-app purchases, no advertising.</div>
+      </details>
+      <details>
+        <summary>Is my and my child's data private?</summary>
+        <div class="answer">Yes. The Athena app does not record any medical data. Test results are shared with you, the parent, and stored securely. They are never sold or shared with third parties.</div>
+      </details>
+      <details>
+        <summary>Can my child do ASW without playing a pitch-based sport?</summary>
+        <div class="answer">We welcome athletes from any background or ability. This is about getting better at anything that moves. Please email us first with any questions.</div>
+      </details>
+      <details>
+        <summary>When does the next ASW summer cohort run?</summary>
+        <div class="answer">ASW runs once a year only, in the school summer holidays. Day 1 is in early July, Day 12 is in mid-August. Bookings open in May. If you miss this summer, the next cohort is twelve months later.</div>
+      </details>
+      <details>
+        <summary>What happens after the six weeks?</summary>
+        <div class="answer">Your child can stop there with their progress report and what they have learned. Or they can continue with ASW Year-Round to keep building through the season. The choice is yours, made at the end of Day 12.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  ENROL  ========================= -->
+<section id="enrol" class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">How to enrol</span>
+    <h2>Three steps</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Choose your tier</h3>
+        <p>Pick Bronze, Silver, Gold or VIP from the pricing section.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Complete the booking</h3>
+        <p>Parent details, child details, brief medical history, parental consent. Pay securely by card.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Get ready for Day 1</h3>
+        <p>You'll receive a confirmation email and an Athena app login link the same day. Your child is ready for Day 1 in early July.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px;">
+      <a href="#pricing" class="btn btn-primary">Choose a Package</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  FOOTER  ========================= -->
+<footer>
+  <div class="wrap">
+    <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" style="max-width:300px;width:80%;margin-bottom:18px;" />
+    <p style="font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:3px;font-size:1.2rem;margin:0 0 6px;"><span style="color:var(--crimson);">TRAIN FAST</span> &nbsp;·&nbsp; <span style="color:var(--purple-light);">PLAY FASTER</span></p>
+    <p>Dr David Silver PhD &nbsp;&amp;&nbsp; Marcus Watson</p>
+
+    <div class="contact-grid">
+      <a href="mailto:athenaphysio@gmail.com">athenaphysio@gmail.com</a>
+      <a href="tel:+447793650569">07793 650 569</a>
+      <a href="https://athenaphysio.co.uk/wsk" target="_blank" rel="noopener">athenaphysio.co.uk/wsk</a>
+    </div>
+
+    <div class="copyright">© <span id="yr"></span> Atomic Speedworks. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Friendly placeholder for the Stripe links until you paste real Payment Links in.
+  document.querySelectorAll('a[href^="STRIPE_LINK_"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      alert("Stripe payment link not yet configured. Open index.html and replace the placeholder " + a.getAttribute('href') + " with your Stripe Payment Link URL.");
+    });
+  });
+</script>
+
+</body>
+</html>

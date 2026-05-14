@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Athena App — Atomic Speedworks</title>
-<meta name="description" content="A look inside the Athena app — the clinical-grade platform that powers every Atomic Speedworks session." />
+<title>The Atomic App — Atomic Speedworks</title>
+<meta name="description" content="A look inside the Atomic app — the clinical-grade platform that powers every Atomic Speedworks session." />
 
 <style>
 :root{
@@ -120,20 +120,20 @@ p{margin:0 0 14px;}
 
 .shots{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:32px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:28px;
+  max-width:900px;margin:0 auto;
+}
+@media(max-width:760px){
+  .shots{grid-template-columns:1fr;max-width:300px;}
 }
 .shot{
-  background:#fff;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  padding:18px;
   display:flex;flex-direction:column;align-items:center;
   transition:transform .2s ease;
 }
 .shot:hover{transform:translateY(-6px);}
 .shot .frame{
-  /* Phone-shape frame for screenshots */
+  /* Portrait phone-style frame for screenshots */
   width:100%;
   aspect-ratio:9/19;
   background:#0e0a18 center/cover no-repeat;
@@ -142,6 +142,7 @@ p{margin:0 0 14px;}
   display:flex;align-items:center;justify-content:center;
   color:#7a7384;font-size:.85rem;text-align:center;padding:14px;
   position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 .shot .frame.placeholder::before{
   content:"";position:absolute;inset:0;
@@ -152,6 +153,20 @@ p{margin:0 0 14px;}
   position:relative;z-index:1;
   color:#cfc7d7;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.75rem;
 }
+
+/* Compatibility badge under the hero lead */
+.compat{
+  display:inline-flex;flex-wrap:wrap;justify-content:center;gap:14px 22px;
+  margin:8px 0 28px;
+  padding:10px 22px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  font-size:.78rem;color:#fff;
+}
+.compat span{display:inline-flex;align-items:center;gap:8px;}
+.compat .sep{color:var(--crimson);font-weight:900;}
 .shot .caption{
   margin-top:14px;font-weight:700;color:var(--navy);font-size:.95rem;text-align:center;
 }
@@ -213,9 +228,16 @@ footer .wrap > p{color:#cfc7d7;}
 <header class="app-hero pattern-bg">
   <div class="wrap">
     <span class="eyebrow on-dark">Inside the platform</span>
-    <h1><span class="pink">The Athena App</span></h1>
-    <p class="lead">Athena is a clinical-grade platform built by Dr David Silver. Every Atomic Speedworks session is delivered through it — guided videos, progress tracking, and direct messaging with your coach.</p>
-    <a href="index.html#pricing" class="btn btn-primary">Choose a Package</a>
+    <h1><span class="pink">The Atomic App</span></h1>
+    <p class="lead">Atomic is a clinical-grade platform built by Dr David Silver &amp; Marcus Watson. Every Atomic Speedworks session is delivered through it — guided videos, progress tracking, and direct messaging with your coach.</p>
+    <div class="compat">
+      <span>Phone</span><span class="sep">·</span>
+      <span>Tablet</span><span class="sep">·</span>
+      <span>Desktop compatible</span>
+    </div>
+    <div>
+      <a href="index.html#pricing" class="btn btn-primary">Choose a Package</a>
+    </div>
   </div>
 </header>
 
@@ -228,59 +250,27 @@ footer .wrap > p{color:#cfc7d7;}
       <p>A simple, no-clutter experience: open the app, press play, follow the coach. Each session is short, structured, and tracked.</p>
     </div>
 
-    <!--
-      To add a real screenshot, drop a phone-shaped image into this folder
-      named e.g. "app1.jpg", "app2.jpg" — then change the matching .frame line below
-      from   <div class="frame placeholder"><span>...</span></div>
-      to     <div class="frame" style="background-image:url('app1.jpg');"></div>
-    -->
+    <!-- Drop three portrait screenshots into the folder named app1.jpg, app2.jpg, app3.jpg
+         and they'll appear automatically. -->
 
     <div class="shots">
-
       <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Today's Session</div>
-        <div class="sub">One tap to start. Warm-up, main set, cool-down.</div>
+        <div class="frame" style="background-image:url('app1.png');"></div>
       </div>
-
       <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Exercise Demo</div>
-        <div class="sub">Every drill has a short demonstration video.</div>
+        <div class="frame" style="background-image:url('app2.png');"></div>
       </div>
-
       <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Progress Tracking</div>
-        <div class="sub">Tick off completed sessions. Streaks &amp; consistency.</div>
+        <div class="frame" style="background-image:url('app3.png');"></div>
       </div>
-
-      <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Coach Messaging</div>
-        <div class="sub">Reply directly to David or Marcus. 24-hr response.</div>
-      </div>
-
-      <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Test Day Results</div>
-        <div class="sub">Day 1 baseline vs Day 12 retest in one screen.</div>
-      </div>
-
-      <div class="shot">
-        <div class="frame placeholder"><span>Screenshot<br/>coming soon</span></div>
-        <div class="caption">Parent Dashboard</div>
-        <div class="sub">A quiet view of how your child is getting on.</div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-band">
-  <h2>Ready to see your child get faster?</h2>
-  <p>Pick a tier and we'll have you set up on the Athena app the same day.</p>
+  <h2>Ready for faster?</h2>
+  <p>Pick a tier and we'll have you set up on the Atomic app today.</p>
   <a href="index.html#pricing" class="btn btn-primary">View Packages</a>
 </section>
 

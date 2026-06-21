@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Parent Guide — Atomic Speedworks</title>
+<meta name="description" content="A guide for parents of young athletes, ages 12 to 18+. How to talk to your child about training, testing and progress — from the coaching team at Atomic Speedworks." />
+
+<!-- Favicon (tab icon, bookmark icon, home-screen icon) -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#000000" />
+
+<style>
+:root{
+  --crimson:#D02954;
+  --crimson-dark:#a61f43;
+  --purple:#8E44C9;
+  --purple-light:#a866dc;
+  --navy:#2D1B4E;
+  --black:#050208;
+  --ink:#0e0a18;
+  --cream:#f7f3ef;
+  --soft:#ece6df;
+  --muted:#7a7384;
+  --gold:#f5a738;
+  --shadow:0 10px 30px rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:.5px;
+  line-height:1.1;
+  margin:0 0 16px;
+  text-transform:uppercase;
+}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);}
+h2{font-size:clamp(1.6rem,3vw,2.4rem);}
+h3{font-size:1.05rem;letter-spacing:.5px;}
+p{margin:0 0 14px;}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+section{padding:72px 0;position:relative;}
+section[id]{scroll-margin-top:70px;}
+
+.eyebrow{
+  display:inline-block;
+  font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;
+  font-weight:800;
+  letter-spacing:3px;
+  font-size:.8rem;
+  color:var(--crimson);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.eyebrow.on-dark{color:var(--purple-light);}
+
+.btn{
+  display:inline-block;
+  padding:14px 28px;
+  border-radius:6px;
+  font-weight:700;
+  font-size:1rem;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border:0;cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{background:var(--crimson);color:#fff;}
+.btn-primary:hover{background:var(--crimson-dark);transform:translateY(-2px);box-shadow:var(--shadow);}
+.btn-ghost{background:transparent;color:#fff;border:2px solid #fff;}
+.btn-ghost:hover{background:#fff;color:var(--ink);}
+
+/* Repeating geometric background — used on dark sections, matches the prospectus */
+.pattern-bg{
+  background-color:var(--black);
+  background-image:url("pattern-bg.jpg");
+  background-repeat:repeat;
+  background-size:400px auto;
+  color:#fff;
+  position:relative;
+}
+.pattern-bg::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,2,8,.55),rgba(5,2,8,.78));
+  pointer-events:none;
+}
+.pattern-bg > *{position:relative;z-index:1;}
+
+.section-light,.section-soft{position:relative;background-color:var(--cream);}
+.section-soft{background-color:var(--soft);}
+.section-light::before,.section-soft::before{
+  content:"";position:absolute;inset:0;
+  background-image:url("pattern.svg");
+  background-repeat:repeat;background-size:140px 140px;opacity:.06;pointer-events:none;z-index:0;
+}
+.section-light .wrap,.section-soft .wrap{position:relative;z-index:1;}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:#000;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1200px;margin:0 auto;}
+.nav-logo img{height:42px;display:block;}
+.nav-links{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.nav-links a{color:#fff;text-decoration:none;font-size:.9rem;font-weight:600;letter-spacing:.5px;}
+.nav-links a:hover{color:var(--purple-light);}
+.nav-links .btn{padding:10px 20px;font-size:.85rem;}
+@media(max-width:760px){.nav-links a:not(.btn){display:none;}}
+
+/* ---------- HERO ---------- */
+.guide-hero{padding:100px 0 76px;text-align:center;}
+.guide-hero .tagline{font-size:1.05rem;max-width:680px;margin:0 auto 10px;color:#e9e4ef;}
+.guide-hero .friends{font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;color:#cfc7d7;margin-bottom:28px;}
+.guide-hero .age-pill{
+  display:inline-block;margin:10px 0 28px;padding:8px 20px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);
+  font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.78rem;color:#fff;
+}
+
+/* ---------- AT A GLANCE ---------- */
+.glance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:32px;}
+.glance-card{background:#fff;border-left:5px solid var(--crimson);border-radius:8px;padding:20px 22px;box-shadow:var(--shadow);}
+.glance-card .gnum{font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;font-weight:900;font-size:1.8rem;color:var(--crimson);line-height:1;margin-bottom:6px;}
+.glance-card p{margin:0;font-size:.95rem;color:#3a3344;}
+
+.quote-block{
+  margin:36px 0;background:var(--black);color:#fff;text-align:center;
+  padding:34px 26px;border-radius:10px;
+  font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;font-weight:900;
+  font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:.5px;text-transform:none;
+}
+.quote-block .hl{color:var(--crimson);}
+
+.tip-box{
+  margin-top:28px;background:#fff;border:1px solid #e2dcd3;border-radius:10px;padding:24px 26px;
+}
+.tip-box.on-purple{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);}
+.tip-box h4{color:var(--purple);font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;font-weight:900;letter-spacing:1.5px;margin:0 0 10px;font-size:1rem;text-transform:uppercase;}
+.tip-box.on-purple h4{color:var(--purple-light);}
+.tip-box ul{list-style:none;margin:8px 0 0;padding:0;}
+.tip-box ul li{padding:6px 0 6px 22px;position:relative;font-size:.95rem;}
+.tip-box ul li:before{content:"•";position:absolute;left:0;color:var(--crimson);font-weight:900;}
+
+/* ---------- NUMBERED ROWS (good coaching / look for / when flat) ---------- */
+.num-row{display:flex;gap:20px;margin-bottom:26px;align-items:flex-start;}
+.num-row .n{flex:0 0 44px;font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;font-weight:900;font-size:2.1rem;color:var(--crimson);line-height:1;}
+.on-dark .num-row .n{color:var(--purple-light);}
+.num-row .body h4{margin:0 0 4px;text-transform:none;font-size:1.05rem;letter-spacing:0;font-weight:800;}
+.num-row .body p{margin:0;font-size:.95rem;}
+.on-dark .num-row .body p{color:#e6e2ee;}
+.num-row.circle .n{
+  flex:0 0 40px;height:40px;width:40px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+}
+
+/* ---------- HIGHLIGHT QUOTE BOX (Richard Shorter) ---------- */
+.highlight-box{
+  background:var(--purple);color:#fff;border-radius:10px;padding:24px 26px;margin:24px 0;
+  font-size:.97rem;
+}
+.highlight-box strong{color:#fff;}
+
+.practice-checklist{list-style:none;padding:0;margin:18px 0 0;}
+.practice-checklist li{padding:10px 0 10px 32px;position:relative;font-size:.95rem;border-bottom:1px solid #e2dcd3;}
+.practice-checklist li:last-child{border-bottom:0;}
+.practice-checklist li:before{content:"✓";position:absolute;left:0;top:9px;color:var(--purple);font-weight:900;}
+
+/* ---------- QUESTION GRID ---------- */
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:28px;}
+.q-card{background:rgba(255,255,255,.07);border-top:3px solid var(--purple-light);border-radius:8px;padding:16px 20px;font-weight:700;font-size:.95rem;color:#fff;}
+.q-card .mark{color:var(--crimson);margin-right:6px;}
+
+/* ---------- AVOID GRID ---------- */
+.avoid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px;}
+.avoid-card{background:rgba(255,255,255,.05);border-left:4px solid var(--crimson);border-radius:8px;padding:18px 20px;}
+.avoid-card .x{color:var(--crimson);font-weight:900;margin-right:6px;}
+.avoid-card .q{font-weight:800;display:block;margin-bottom:6px;}
+.avoid-card p{margin:0;font-size:.92rem;color:#e6e2ee;}
+
+.pattern-box{
+  margin-top:28px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:24px 26px;
+}
+.pattern-box h4{color:var(--purple-light);font-size:1rem;letter-spacing:1.5px;margin:0 0 10px;}
+
+/* ---------- STAT / PULL-QUOTE BOXES ---------- */
+.stat-box{
+  background:var(--navy);color:#fff;border-radius:10px;padding:26px 28px;margin:28px 0;text-align:center;
+}
+.stat-box .headline{font-family:'Avenir Next','Avenir','Nunito Sans',sans-serif;font-weight:900;font-size:1.25rem;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.stat-box p{margin:0;color:#e6e2ee;font-size:.95rem;}
+
+.pull-quote{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;
+  padding:24px 28px;margin:26px 0;font-style:italic;text-align:center;font-size:1.05rem;color:#fff;
+}
+
+.stuck-box{
+  margin-top:18px;background:rgba(245,167,56,.12);border:1px solid rgba(245,167,56,.4);
+  border-radius:10px;padding:18px 24px;text-align:center;font-style:italic;color:var(--gold);font-size:1.05rem;
+}
+
+/* ---------- FURTHER READING ---------- */
+.reading-list{margin-top:22px;}
+.reading-item{background:#fff;border-left:4px solid var(--purple);border-radius:8px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--shadow);}
+.reading-item h4{margin:0 0 4px;color:var(--purple);font-size:1rem;text-transform:none;letter-spacing:0;}
+.reading-item p{margin:0;font-size:.92rem;color:#3a3344;}
+
+.signoff{display:flex;align-items:center;justify-content:center;gap:22px;margin:36px 0;flex-wrap:wrap;text-align:center;}
+.signoff .avatar-sm{width:84px;height:84px;border-radius:50%;background-size:cover;background-position:center top;border:3px solid var(--purple);box-shadow:var(--shadow);}
+.signoff .avatar-sm.crimson{border-color:var(--crimson);}
+
+/* ---------- CLOSING CTA ---------- */
+.guide-cta{
+  background:var(--black);border-radius:14px;padding:40px 36px;text-align:center;margin-top:8px;
+  border:1px solid rgba(255,255,255,.12);
+}
+.guide-cta .eyebrow{color:var(--purple-light);}
+.guide-cta p{color:#e6e2ee;max-width:680px;margin:0 auto 22px;}
+.guide-cta .btn{margin:0 8px 10px;}
+.guide-cta .contact-line{margin-top:18px;font-size:.92rem;color:#cfc7d7;}
+.guide-cta .contact-line a{color:var(--purple-light);text-decoration:none;border-bottom:1px solid var(--purple-light);}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--black);color:#fff;padding:50px 0 30px;text-align:center;border-top:4px solid var(--crimson);}
+footer .wrap > p{color:#cfc7d7;}
+.contact-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin:24px 0;}
+.contact-grid a{color:#fff;text-decoration:none;font-size:1rem;border-bottom:2px solid var(--crimson);padding-bottom:3px;}
+.contact-grid a:hover{color:var(--crimson);}
+.copyright{font-size:.8rem;color:#7a7384;margin-top:20px;letter-spacing:1px;}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- =========================  NAV  ========================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" />
+    </a>
+    <div class="nav-links">
+      <a href="index.html#programme">Programme</a>
+      <a href="index.html#coaches">Coaches</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="app.html">The App</a>
+      <a href="parent-guide.html">Parent Guide</a>
+      <a href="index.html#enrol" class="btn btn-primary">Enrol</a>
+    </div>
+  </div>
+</nav>
+
+<!-- =========================  HERO  ========================= -->
+<header class="guide-hero pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Parent Guide</span>
+    <h1>A guide for parents of<br/>young athletes, ages 12 to 18+</h1>
+    <p class="tagline">From the coaching team at Atomic Speedworks and friends.</p>
+    <div class="friends">Six-week speed &amp; athletic development programmes</div>
+    <div class="age-pill">Ages 12 to 18+</div>
+    <div>
+      <a href="#cta" class="btn btn-primary">Jump to booking</a>
+    </div>
+  </div>
+</header>
+
+<!-- =========================  AT A GLANCE  ========================= -->
+<section id="glance" class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">At a glance</span>
+    <h2>Six small things to try across a season</h2>
+    <p class="lead">Whatever the sport — your key reminders for the drive home.</p>
+
+    <div class="glance-grid">
+      <div class="glance-card"><div class="gnum">1</div><p><strong>"I love watching you train"</strong> once, on a journey home. Resist the urge to repeat it every week — it loses its weight.</p></div>
+      <div class="glance-card"><div class="gnum">2</div><p>Pick three of the eleven questions (below) and stick with the same three for a whole season. Children find a constant rotation reassuring, not boring.</p></div>
+      <div class="glance-card"><div class="gnum">3</div><p>Don't coach at home. Spot something technical? Mention it to their coach, not them — and trust the coach to pick it up.</p></div>
+      <div class="glance-card"><div class="gnum">4</div><p>Tell your child what you noticed about their <strong>effort, attitude or energy</strong>, not their performance. Specific, sincere noticing beats generic praise every time.</p></div>
+      <div class="glance-card"><div class="gnum">5</div><p>When a progress report or end-of-block review arrives, ask what they took from it <strong>before</strong> discussing the numbers. Curiosity first, evaluation second.</p></div>
+      <div class="glance-card"><div class="gnum">6</div><p>Notice the urge to compare to a teammate, a sibling, or last season. Then pick a different question instead.</p></div>
+    </div>
+
+    <div class="quote-block">"I love watching <span class="hl">you</span> train."</div>
+
+    <p>These six habits cost nothing and take less than a minute each. Together they are, by far, the highest-leverage thing a parent can do across a season.</p>
+
+    <div class="tip-box">
+      <h4>What the research suggests</h4>
+      <p>Behaviour-change research suggests a handful of small, specific, repeatable actions beat one big, vague intention. You don't need a relationship overhaul — you need a few default responses you can reach for in the seconds after a tough session or a great one.</p>
+      <ul>
+        <li>Default to curiosity before judgement.</li>
+        <li>Praise the process, not the outcome.</li>
+        <li>Let silence do some of the work — not every car journey needs analysis.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  TRAINING IS HALF THE PROCESS  ========================= -->
+<section class="pattern-bg on-dark">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Why this guide exists</span>
+    <h2>Training is half the process</h2>
+    <p style="max-width:780px;color:#e9e4ef;">The questions you ask after a training session shape how much your child actually takes from it. The pitch and the gym do half the work. The conversations you have at home do the other half.</p>
+    <p style="max-width:780px;color:#e9e4ef;">This guide pulls together what years of treating young athletes, and the work of the best people writing about parent communication in sport, tells us about that other half. None of it is complicated. Most of it is about saying less, and choosing what you say with care.</p>
+
+    <h3 style="margin-top:36px;color:var(--purple-light);font-size:1.15rem;text-transform:uppercase;letter-spacing:1px;">What good coaching looks like</h3>
+    <p style="max-width:780px;color:#e9e4ef;">A quick orientation on the principles behind well-run youth training, in any sport, so the next conversation with their coach makes more sense.</p>
+
+    <div style="margin-top:28px;">
+      <div class="num-row"><div class="n">1</div><div class="body"><h4 style="color:#fff;">Skill is taught, not endured.</h4><p>More reps done tired, with poor technique, doesn't make a player better. Good coaches start with fun and play, then add intent and speed.</p></div></div>
+      <div class="num-row"><div class="n">2</div><div class="body"><h4 style="color:#fff;">Form before intensity.</h4><p>Early sessions in any new skill should be about the movement itself. Times, scores and reps come later, once the pattern is sound.</p></div></div>
+      <div class="num-row"><div class="n">3</div><div class="body"><h4 style="color:#fff;">Recovery is part of the work.</h4><p>Quality reps need full recovery between them. If a young athlete is out of breath doing technical work, the rest was too short — the body was training endurance, not the skill.</p></div></div>
+      <div class="num-row"><div class="n">4</div><div class="body"><h4 style="color:#fff;">Process over outcome.</h4><p>Good coaching cues describe the action — "push the ground away," "stick the landing," "tall posture" — not the result. Praise for what the player did tops praise for what they achieved.</p></div></div>
+      <div class="num-row"><div class="n">5</div><div class="body"><h4 style="color:#fff;">Confidence comes from competence.</h4><p>Generic encouragement ("great job!") fades fast. Confidence that lasts is built from genuinely getting better at something specific and noticing it for yourself. That is why good coaches break skills into small, achievable steps.</p></div></div>
+      <div class="num-row" style="margin-bottom:0;"><div class="n">6</div><div class="body"><h4 style="color:#fff;">Play stays protected.</h4><p>However serious the programme, the best coaches keep an element of enjoyment and choice in every session. Athletes who experience sport as relentlessly serious burn out younger than those who don't.</p></div></div>
+    </div>
+
+    <p style="margin-top:28px;font-style:italic;color:#cfc7d7;max-width:780px;">None of this needs you to become an expert. It just helps to know roughly what good practice looks like so you can ask your child's coach an informed question if something doesn't feel right.</p>
+  </div>
+</section>
+
+<!-- =========================  SUPPORTER, NOT COACH  ========================= -->
+<section class="section-light">
+  <div class="wrap">
+    <h2>Supporter, not coach</h2>
+    <p style="max-width:780px;">You are not your child's coach. Someone else is. This sounds obvious — it is, in practice, one of the hardest principles for sport parents to hold to.</p>
+    <p style="max-width:780px;">The temptation to coach — from the touchline, from the car, at the breakfast table — comes from love. You want them to do well. You see something that could be tweaked, and say it. Almost always with kindness.</p>
+    <p style="max-width:780px;">The problem is that for a young athlete, the parent voice and the coach voice get tangled. They start hearing technical correction at home, performance evaluation in the car, and emotional support from people they trust less than you. The relationships get muddled, and the home stops feeling like a safe place to land after a hard session.</p>
+
+    <div class="highlight-box">
+      <strong>Richard Shorter</strong>, the sports parent educator, has spent years on this question. His clearest finding: the drive home from training is often the single most important, and most dangerous, conversation in youth sport. Children replay it for the rest of the evening. Parents tend to use it for analysis, opinion or correction right when the child is tired and least able to absorb it. The technical work, the goal-setting and the strategy belong with the coach — the car is for everything else.
+    </div>
+
+    <p style="font-weight:800;color:var(--crimson);max-width:780px;">The best thing you can do as a sport parent is to choose what you DON'T say.</p>
+
+    <div class="quote-block" style="margin-top:30px;">I LOVE <span class="hl">WATCHING</span> YOU TRAIN.</div>
+
+    <p style="max-width:780px;">Research from <strong>Bruce Brown</strong> and <strong>Rob Miller</strong> asked thousands of young athletes one question: what do you most want to hear from your parents after a game or session? The answer was almost universal — <em>"I love to watch you play."</em> No performance comment or technical note, no comparison. If your child's sport is mostly training rather than match-play, the version that works just as well is <strong>"I love watching you train."</strong> Said once. It tells your child the relationship isn't contingent on results.</p>
+
+    <h3 style="margin-top:30px;color:var(--purple);text-transform:uppercase;letter-spacing:1px;">What this looks like in practice</h3>
+    <ul class="practice-checklist">
+      <li>On the way home: ask one open question, then let the radio do some of the talking.</li>
+      <li>After a tough loss or a flat session: resist the post-mortem until the next day, if at all.</li>
+      <li>At the dinner table: ask about a teammate's funny moment before you ask about the scoreboard.</li>
+      <li>Spot a technical fix that's needed? Mention it to the coach, not your child.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =========================  QUESTIONS THAT BUILD A CURIOUS ATHLETE  ========================= -->
+<section class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Conversation starters</span>
+    <h2>Questions that build a curious athlete</h2>
+    <p style="max-width:780px;color:#e9e4ef;">Eleven questions that consistently produce useful conversations. Each is built around process, effort, learning or enjoyment.</p>
+
+    <div class="q-grid">
+      <div class="q-card"><span class="mark">?</span>What was the best bit of today?</div>
+      <div class="q-card"><span class="mark">?</span>What did you find tricky?</div>
+      <div class="q-card"><span class="mark">?</span>What did you learn today?</div>
+      <div class="q-card"><span class="mark">?</span>What was the coach trying to teach you?</div>
+      <div class="q-card"><span class="mark">?</span>Did anything click that hadn't before?</div>
+      <div class="q-card"><span class="mark">?</span>What would you try differently next session?</div>
+      <div class="q-card"><span class="mark">?</span>Did you have fun?</div>
+      <div class="q-card"><span class="mark">?</span>Who did you train with?</div>
+      <div class="q-card"><span class="mark">?</span>What did your body feel like at the end?</div>
+      <div class="q-card"><span class="mark">?</span>What's one thing you'd like to get better at this week?</div>
+      <div class="q-card"><span class="mark">?</span>Anything you want to ask your coach about?</div>
+    </div>
+
+    <p style="margin-top:28px;max-width:780px;color:#e9e4ef;">Notice what these are <em>not</em> about. Not whether your child was fastest, not how they compared to a teammate, not what they did wrong. The questions invite reflection, not evaluation. Motivation lasts when a young athlete feels they own their progress — the questions hand the ownership back to them. They shape their own answer.</p>
+
+    <div class="pattern-box">
+      <h4>How to use this list</h4>
+      <p style="color:#e9e4ef;">Don't run through all eleven at once — that turns a chat into an interview. Pick three that suit your child and your sport, and use the same three for a whole season. Swap in a new one only when an old one stops landing.</p>
+      <ul style="list-style:none;padding:0;margin:14px 0 0;">
+        <li style="padding:6px 0 6px 20px;position:relative;color:#e9e4ef;font-size:.93rem;"><span style="position:absolute;left:0;color:var(--gold);">•</span>Ask once, then go quiet. Let your child fill the silence.</li>
+        <li style="padding:6px 0 6px 20px;position:relative;color:#e9e4ef;font-size:.93rem;"><span style="position:absolute;left:0;color:var(--gold);">•</span>If the answer is one word, that's fine. Don't chase a longer one.</li>
+        <li style="padding:6px 0 6px 20px;position:relative;color:#e9e4ef;font-size:.93rem;"><span style="position:absolute;left:0;color:var(--gold);">•</span>Timing matters more than wording. After they've had a drink and a breather, not the instant they get in the car.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  FIVE DEAD END QUESTIONS  ========================= -->
+<section class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Worth avoiding</span>
+    <h2>Five dead end questions</h2>
+    <p style="max-width:780px;color:#e9e4ef;">Just as useful as knowing what to ask is knowing what not to.</p>
+
+    <div class="avoid-grid">
+      <div class="avoid-card"><span class="q"><span class="x">✕</span>"How did you compare?"</span><p>Comparison with peers, especially friends, is a fast track to either complacency or anxiety. Neither helps.</p></div>
+      <div class="avoid-card"><span class="q"><span class="x">✕</span>"Why didn't you do X?"</span><p>This is coaching by question. If your child wanted technical correction, they'd have asked. The session is the place for technique, the car is not.</p></div>
+      <div class="avoid-card"><span class="q"><span class="x">✕</span>"Was [name] better than you?"</span><p>Specific peer comparison hurts more than general comparison. It puts the friendship in the same frame as the performance.</p></div>
+      <div class="avoid-card"><span class="q"><span class="x">✕</span>"How did that compare to last week?"</span><p>Good coaching focuses on progress over a season, not a single rep-to-rep comparison. Let the coach be the one tracking the numbers so you don't have to.</p></div>
+      <div class="avoid-card"><span class="q"><span class="x">✕</span>"Are you going to get picked / make the team?"</span><p>Selection anxiety is one of the biggest sources of dropout in youth sport. Let the result emerge from the training rather than making every conversation about the outcome.</p></div>
+    </div>
+
+    <p style="margin-top:28px;max-width:780px;color:#e9e4ef;">If you find yourself wanting to ask any of these, that's fine and normal. The skill is noticing the urge — then choosing one of the questions above instead.</p>
+
+    <div class="pattern-box">
+      <h4>The pattern behind all five</h4>
+      <p style="color:#e9e4ef;"><strong style="color:#fff;">John O'Sullivan</strong>, who has spent years studying why young athletes quit, found the same root cause behind almost every burnt-out or disengaged child. Sport had stopped being theirs, and started being something they performed for someone else's approval.</p>
+      <p style="color:#e9e4ef;margin:0;">Every question on this page does that, in a small way — it hands the evaluation back to a parent. The five above are the most common offenders, not the only ones. If a question makes your child justify themselves, it probably belongs here too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  WHAT TO LOOK FOR OVER A TRAINING BLOCK  ========================= -->
+<section class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">Progress you can see at home</span>
+    <h2>What to look for over a training block</h2>
+    <p style="max-width:780px;">Test results and scoreboards matter — that's why coaches measure and re-test. But focused coaching produces changes you can see at home well before any formal report arrives.</p>
+
+    <div style="margin-top:28px;">
+      <div class="num-row circle"><div class="n">1</div><div class="body"><h4>Movement quality</h4><p>An athlete who has worked on technique carries themselves differently. They stand taller, walk with a touch more spring. Watch their warm-up before any sport — it gets more deliberate and conscious.</p></div></div>
+      <div class="num-row circle"><div class="n">2</div><div class="body"><h4>Body confidence</h4><p>Athletes who feel their body responding well take small physical risks they didn't take before — volunteering for the relay, getting into a tackle they'd have shied away from, trying the harder version of a drill.</p></div></div>
+      <div class="num-row circle"><div class="n">3</div><div class="body"><h4>Curiosity about the sessions</h4><p>A few weeks in, an engaged child will be talking about a specific drill or technique, wanting to show you something they learned. Make a fuss of being shown — teaching it back to you is the deepest form of learning there is.</p></div></div>
+      <div class="num-row circle"><div class="n">4</div><div class="body"><h4>Independence</h4><p>Packing their own kit, warming up without being told, or asking their coach a question themselves instead of routing it through you. Small as it sounds, that habit is worth more than any single skill they pick up.</p></div></div>
+      <div class="num-row circle"><div class="n">5</div><div class="body"><h4>Resilience after a hard session</h4><p>Coming home from a tough session, eating dinner, and being in a good mood by bedtime is a signature of healthy sport-psychological development. If a session knocks your child sideways for more than an evening, that's worth a quiet word with their coach.</p></div></div>
+      <div class="num-row circle" style="margin-bottom:0;"><div class="n">6</div><div class="body"><h4>Enjoyment, plain and simple</h4><p>The clearest marker of all: do they still want to go? A child developing well looks forward to sessions, even on a tired day. A dip in enthusiasm that lasts more than a week or two deserves a conversation with the coach, not just a pep talk at home.</p></div></div>
+    </div>
+
+    <p style="margin-top:28px;font-style:italic;color:#555;max-width:780px;">You won't see all six every week, and that's normal. Development in young athletes comes in bursts, not a straight line. Looking for the pattern over a season tells you far more than any single week does.</p>
+  </div>
+</section>
+
+<!-- =========================  WHEN THE NUMBERS DON'T CHANGE THE WAY YOU/THEY HOPED  ========================= -->
+<section class="pattern-bg">
+  <div class="wrap">
+    <span class="eyebrow on-dark">If a test day or report comes back flat</span>
+    <h2>When the numbers don't change the way you/they hoped</h2>
+    <p style="max-width:780px;color:#e9e4ef;">Some reports will sing — times will drop, jumps will climb, strength will be up across the board. Some won't. Some athletes plateau, or have a genuinely tough block of training because of a growth spurt, illness, or a hundred other reasons. If this is your child, here is what's worth remembering.</p>
+
+    <div style="margin-top:28px;">
+      <div class="num-row"><div class="n" style="color:var(--gold);">1</div><div class="body"><h4 style="color:#fff;">Testing measures one moment</h4><p>Any single test day is a snapshot, not the full picture. A block of training doesn't always show its full effect by the time it ends. Many changes, particularly mechanics and movement quality, show two to three months later once the body has consolidated the training.</p></div></div>
+      <div class="num-row"><div class="n" style="color:var(--gold);">2</div><div class="body"><h4 style="color:#fff;">The knowledge doesn't vanish</h4><p>A block of training, undertaken seriously by a young athlete, changes their understanding of how to train forever. They now know what a good warm-up feels like and what proper recovery is. That doesn't disappear because one number didn't move.</p></div></div>
+      <div class="num-row"><div class="n" style="color:var(--gold);">3</div><div class="body"><h4 style="color:#fff;">Your reaction is the lesson</h4><p>Children take their cue from how adults respond to data they can't fully control. Receive a flat report calmly — "well, that's interesting, what did you take from it?" — and you've taught your child something durable about handling measured performance for life.</p></div></div>
+      <div class="num-row" style="margin-bottom:0;"><div class="n" style="color:var(--gold);">4</div><div class="body"><h4 style="color:#fff;">It's not a verdict on potential</h4><p>Children mature physically at very different rates. A late developer can be a step behind at 13 and ahead at 16. Sport science has well-documented late bloomers in almost every discipline. One flat block of testing tells you nothing reliable about where a child ends up.</p></div></div>
+    </div>
+
+    <div class="pull-quote">"The single best response to a flat report is the same response you'd give to a great one. Stay curious and warm, and let your child know the relationship is not built on results."</div>
+
+    <div class="stuck-box">
+      <span style="display:block;font-style:normal;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:.78rem;margin-bottom:8px;">If you're stuck for words</span>
+      "That's interesting — what do you think made the difference this time?"
+    </div>
+  </div>
+</section>
+
+<!-- =========================  WHY THIS GUIDE MATTERS  ========================= -->
+<section class="section-light">
+  <div class="wrap">
+    <span class="eyebrow">The bigger picture</span>
+    <h2>Why this guide matters</h2>
+    <p style="max-width:780px;">The drop-out rate from organised youth sport in the UK rises sharply between ages 12 and 16. The single most consistent predictor of whether a child stays in sport is whether they enjoy it. Talent, time invested and geographical access all matter less than this one variable.</p>
+
+    <div class="stat-box">
+      <div class="headline">Youth athlete enjoyment is shaped by parents more than any other factor</div>
+      <p>Parents who are warm, curious, process-focused and present (without trying to coach) produce children who stay in sport longer, get more from it, and carry the habit of movement into adulthood.</p>
+    </div>
+
+    <p style="max-width:780px;">This is not about being perfect. Every parent of a young athlete has had the journey home where they said the wrong thing — we have, countless times, with our own children and the athletes we coach. The work is noticing it, and adjusting the conversation next time. Whatever programme, club or team your child is part of, the way the two of you talk about it together is the rest of their relationship with sport.</p>
+
+    <h3 style="margin-top:36px;color:var(--crimson);text-transform:uppercase;letter-spacing:1px;">Further reading</h3>
+    <div class="reading-list">
+      <div class="reading-item"><h4>Richard Shorter — "Conversations for The Journey"</h4><p>Writing and podcasts on the post-session conversation, the journey home, and parental sideline behaviour. Practical and short. His framework on the parent's role as supporter shaped much of this guide.</p></div>
+      <div class="reading-item"><h4>Josephine Perry — "i can: the teenage athlete's guide to mental fitness"</h4><p>A UK sport psychologist's clear introduction to performance psychology, written for young athletes themselves.</p></div>
+      <div class="reading-item"><h4>John O'Sullivan — "Changing the Game"</h4><p>Founder of the Changing the Game Project, written after watching a generation of young athletes drop out of organised sport.</p></div>
+    </div>
+
+    <div class="signoff">
+      <div class="avatar-sm crimson" style="background-color:var(--crimson);background-image:url('Marcus.jpg');"></div>
+      <p style="margin:0;font-size:1.05rem;">See you on the pitch!<br/><strong>Marcus Watson</strong> &amp; <strong>Dr David Silver PhD</strong></p>
+      <div class="avatar-sm" style="background-color:var(--purple);background-image:url('David.jpeg');"></div>
+    </div>
+
+    <!-- =========================  CTA  ========================= -->
+    <div id="cta" class="guide-cta">
+      <span class="eyebrow">Putting this into practice</span>
+      <p>This guide is the approach we coach by every week. ASW is a six-week online speed and athletic development programme for ages 12 to 18+, run by us, with before-and-after testing so you and your child can see the progress for yourselves.</p>
+      <a href="index.html#pricing" class="btn btn-primary">View Packages &amp; Book</a>
+      <a href="index.html" class="btn btn-ghost">Explore the Programme</a>
+      <div class="contact-line">Questions, or want to find out more? Email <a href="mailto:David@DrDavidSilverPhD.com">David@DrDavidSilverPhD.com</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================  FOOTER  ========================= -->
+<footer>
+  <div class="wrap">
+    <img src="ATOMIC trial cut out_edited-1.jpg" alt="Atomic Speedworks" style="max-width:300px;width:80%;margin-bottom:18px;" />
+    <p style="font-family:'Avenir Next','Avenir','Nunito Sans','Helvetica Neue',Arial,sans-serif;font-weight:900;letter-spacing:3px;font-size:1.2rem;margin:0 0 6px;"><span style="color:var(--crimson);">TRAIN FAST</span> &nbsp;·&nbsp; <span style="color:var(--purple-light);">PLAY FASTER</span></p>
+    <p>Dr David Silver PhD &nbsp;&amp;&nbsp; Marcus Watson</p>
+
+    <div class="contact-grid">
+      <a href="mailto:athenaphysio@gmail.com">athenaphysio@gmail.com</a>
+      <a href="tel:+447793650569">07793 650 569</a>
+      <a href="index.html">← Back to home</a>
+    </div>
+    <div class="copyright">© <span id="yr"></span> Atomic Speedworks. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
